@@ -42,7 +42,7 @@ public class ServerListLoader {
 	 * 
 	 * @param uuid A játékos raw UUID-je.
 	 * null, amennyiben a publikus listát kívánjuk lekérdezni.
-	 * @return ServerList Mely tartalmazza a játékos számára elérhető szervereket.
+	 * @return ServerList mely tartalmazza a játékos számára elérhető szervereket.
 	 */
 	
 	public static @NonNull ServerList getServerList(@Nullable String uuid) {
