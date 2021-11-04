@@ -59,10 +59,9 @@ public class ServerListLoader {
 		
 		try (Response response = httpClient.newCall(process).execute()) {
 			String resp = response.body().string();
-			
 			JsonObject json = new JsonParser().parse(resp).getAsJsonObject();
-			json.keySet().forEach(key -> list.add(gson.fromJson(new String(json.get(key).getAsString().getBytes(), StandardCharsets.UTF_8), ServerData.class)));
 			
+			json.keySet().forEach(key -> list.add(gson.fromJson(new String(json.get(key).getAsString().getBytes(), StandardCharsets.UTF_8), ServerData.class)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,35 +95,30 @@ public class ServerListLoader {
 
 	        inputStream = socket.getInputStream();
 	        inputStreamReader = new InputStreamReader(inputStream,Charset.forName("UTF-16BE"));
+	        
+	        int packetId = inputStream.read();
+	        int length = inputStreamReader.read();
+	        
 	        dataOutputStream.write(new byte[]{
 	            (byte) 0xFE
 	        });
-	        
-	        int packetId = inputStream.read();
 
-	        if (packetId == -1) {
+	        if (packetId == -1)
 	                throw new Exception("Premature end of stream.");
-	        }
 
-	        if (packetId != 0xFF) {
+	        if (packetId != 0xFF)
 	                throw new Exception("Invalid packet ID (" + packetId + ").");
-	        }
 
-	        int length = inputStreamReader.read();
-
-	        if (length == -1) {
+	        if (length == -1)
 	                throw new Exception("Premature end of stream.");
-	        }
 
-	        if (length == 0) {
+	        if (length == 0)
 	                throw new Exception("Invalid string length.");
-	        }
 
 	        char[] chars = new char[length];
 
-	        if (inputStreamReader.read(chars,0,length) != length) {
+	        if (inputStreamReader.read(chars,0,length) != length)
 	                throw new Exception("Premature end of stream.");
-	        }
 
 	        String string = new String(chars);
 	        String[] data = string.split("§");
