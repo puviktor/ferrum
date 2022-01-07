@@ -61,7 +61,7 @@ public class ServerListLoader {
 			String resp = response.body().string();
 			JsonObject json = new JsonParser().parse(resp).getAsJsonObject();
 			
-			json.keySet().forEach(key -> list.add(gson.fromJson(new String(json.get(key).getAsString().getBytes(), StandardCharsets.UTF_8), ServerData.class)));
+			json.keySet().forEach(key -> list.add(gson.fromJson(json.get(key).getAsString(), ServerData.class)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
