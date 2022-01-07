@@ -31,7 +31,7 @@ import okhttp3.Response;
 
 public class ServerListLoader {
 	
-	private static final String checkUrl = "https://auth.playerunion.eu/servers.php";
+	private static final String checkUrl = "https://login.playerunion.eu/servers.php";
 	
 	private static Gson gson = new GsonBuilder().create();
 	
